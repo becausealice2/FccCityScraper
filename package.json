@@ -1,12 +1,12 @@
 {
-  "name"         : "node-web-scrape",
-  "version"      : "0.0.1",
-  "description"  : "Scrape le web.",
-  "main"         : "server.js",
-  "author"       : "Scotch",
-  "dependencies" : {
-    "express"    : "latest",
-    "request"    : "latest",
-    "cheerio"    : "latest"
+  "name": "fcc-campsite-scraper",
+  "version": "0.1.0",
+  "description": "Scrapes a website for some stuff",
+  "main": "server.js",
+  "author": "AliceJiang1 with a LOT of help!",
+  "dependencies": {
+    "cheerio": "^0.20.0",
+    "express": "^4.13.4",
+    "request": "^2.69.0"
   }
 }
