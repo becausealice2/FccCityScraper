@@ -20,14 +20,17 @@ app.get('/', function(req, res){
       var campsite = {};
 
       campsite.city = $(this).text().trim();
-      // Each city's containint unordered list
+      // Each city's containing unordered list element
       var cityList = $( $(this).parent() ).parent();
-      // Element containing the name of the city's region name (if city is not within a region, element contains country name)
+      // Element containing the name of the city's region (if city is not within a region, element contains country name)
       var element = $(cityList).parent().contents().get(0);
 
       // Check if element is at the top of the UL trees.
       if(!$( $( $(element).parent() ).parent() ).parent().hasClass('markdown-body')){
-        campsite.region = $( element ).text().trim();
+        // Don't include the listed US region 'Ambiguous'
+        if($( element ).text().trim() !== 'Ambiguous'){
+          campsite.region = $( element ).text().trim();
+        }
         campsite.country = $( $( $( $(element).parent() ).parent() ).parent().contents().get(0) ).text().trim();
       } else {
         campsite.country = $( element ).text().trim();
