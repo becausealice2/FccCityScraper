@@ -10,8 +10,8 @@ app.get('/', function(req, res){
 
   var url = 'https://github.com/FreeCodeCamp/FreeCodeCamp/wiki/List-of-Free-Code-Camp-city-based-Campsites';
 
-  request(url, function(error, response, html){
-    if(error){ console.log(error) };
+  request(url, function(err, response, html){
+    if(err){ console.log(err) };
 
     var $ = cheerio.load(html,{"normalizeWhitespace":true});
 
@@ -19,7 +19,8 @@ app.get('/', function(req, res){
     $('#wiki-body .markdown-body > ul > li').find('a').each(function(){
       var campsite = {};
 
-      campsite.city = $(this).text().trim();
+      var city = $(this).text().trim();
+      campsite.city = city;
       // Each city's containing unordered list element
       var cityList = $( $(this).parent() ).parent();
       // Element containing the name of the city's region (if city is not within a region, element contains country name)
@@ -29,13 +30,15 @@ app.get('/', function(req, res){
       if(!$( $( $(element).parent() ).parent() ).parent().hasClass('markdown-body')){
         // Don't include the listed US region 'Ambiguous'
         if($( element ).text().trim() !== 'Ambiguous'){
-          campsite.region = $( element ).text().trim();
+          var region = $( element ).text().trim();
+          campsite.region = region;
         }
-        campsite.country = $( $( $( $(element).parent() ).parent() ).parent().contents().get(0) ).text().trim();
+        var country = $( $( $( $(element).parent() ).parent() ).parent().contents().get(0) ).text().trim();
       } else {
-        campsite.country = $( element ).text().trim();
+        var country = $( element ).text().trim();
       }
 
+      campsite.country = country;
       campsite.facebook = $(this).attr('href').trim();
 
       json.push(campsite);
