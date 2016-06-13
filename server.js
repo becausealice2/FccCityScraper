@@ -8,7 +8,7 @@ var express = require('express'),
 
 app.get('/', function(req, res){
 
-  var url = 'https://github.com/FreeCodeCamp/FreeCodeCamp/wiki/List-of-Free-Code-Camp-city-based-Campsites';
+  var url = 'https://github.com/FreeCodeCamp/FreeCodeCamp/wiki/LocalGroups-List';
 
   request(url, function(err, response, html){
     if(err){ console.log(err) };
